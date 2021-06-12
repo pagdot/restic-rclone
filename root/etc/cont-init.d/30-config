@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bash
+
+# copy config files
+[[ ! -f /config/crontab ]] && \
+	cp /defaults/crontab /config/crontab
+[[ ! -f /config/backup.sh ]] && \
+	cp /defaults/backup.sh /config/backup.sh
+[[ ! -f /config/rclone.conf ]] && \
+	touch /config/rclone.conf
+
+# permissions
+chmod +x /config/backup.sh
+chown -R abc:abc /config
+
+# Copy config to new location so it can be mounted read-only
+cp /config/rclone.conf /tmp/rclone.conf
+chown abc:abc /tmp/rclone.conf
