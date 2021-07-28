@@ -21,4 +21,4 @@
 #
 # m h  dom mon dow   command
 
-5 4 * * 0 /config/backup.sh
+5 4 * * 0 /config/backup.sh 2>&1 >> config/log.txt

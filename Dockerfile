@@ -20,15 +20,15 @@ RUN RCLONE_VERSION=true /rclone version && \
 # Begin final image
 FROM lsiobase/alpine:3.11
 
-RUN apk --no-cache add dcron && \
+RUN apk --no-cache add dcron curl && \
    ln -s /config/crontab /etc/crontabs/abc
 
 ENV RCLONE_CONFIG=/tmp/rclone.conf
+ENV RCLONE_CACHE_DIR=/cache
 
 COPY --from=downloader /rclone /usr/local/bin/
 COPY --from=downloader /restic /usr/local/bin/
 COPY root/ /
-
 
 VOLUME /config
 
