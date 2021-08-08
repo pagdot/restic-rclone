@@ -5,7 +5,7 @@
 # echo ##########
 # echo
 # curl -fsS --retry 3 https://hc-ping.com/<UUID>/start
-# restic -r <destination> --verbose backup /data --password-file=/config/password.txt --tag <tag>
+# restic -r <destination> --verbose backup /data -H <hostname> --password-file=/config/password.txt --tag <tag>
 # curl -fsS --retry 3 https://hc-ping.com/<UUID>/$?
 
 # echo
