@@ -1,17 +1,31 @@
 #!/usr/bin/with-contenv bash
 
 # copy config files
-[[ ! -f /config/crontab ]] && \
-	cp /defaults/crontab /config/crontab
 [[ ! -f /config/backup.sh ]] && \
 	cp /defaults/backup.sh /config/backup.sh
 [[ ! -f /config/rclone.conf ]] && \
 	touch /config/rclone.conf
 
+# if abc crontabs do not exist in config
+# copy abc crontab from system
+if [[ ! -f /config/crontab ]] && \
+crontab -l -u abc; then
+    crontab -l -u abc > /config/crontab
+fi
+
+# if abc crontabs still do not exist in config (were not copied from system)
+# copy abc crontab from included defaults
+[[ ! -f /config/crontab ]] && \
+    cp /defaults/crontab /config/
+
 # permissions
 chmod +x /config/backup.sh
 chown -R abc:abc /config
+mkdir -p /cache && chown -R abc:abc /cache
 
 # Copy config to new location so it can be mounted read-only
 cp /config/rclone.conf /tmp/rclone.conf
 chown abc:abc /tmp/rclone.conf
+
+# import user crontabs
+crontab -u abc /config/crontab
