@@ -1,22 +1,39 @@
 #!/usr/bin/with-contenv bash
 
+# make folders
+mkdir -p \
+    /config/crontabs
+
 # copy config files
 [[ ! -f /config/backup.sh ]] && \
 	cp /defaults/backup.sh /config/backup.sh
 [[ ! -f /config/rclone.conf ]] && \
 	touch /config/rclone.conf
 
+# if root crontabs do not exist in config
+# copy root crontab from system
+if [[ ! -f /config/crontabs/root ]] && \
+crontab -l -u root; then
+    crontab -l -u root > /config/crontabs/root
+fi
+
+# if root crontabs still do not exist in config (were not copied from system)
+# copy root crontab from included defaults
+[[ ! -f /config/crontabs/root ]] && \
+    cp /defaults/crontab /config/crontabs/root
+
+
 # if abc crontabs do not exist in config
 # copy abc crontab from system
-if [[ ! -f /config/crontab ]] && \
+if [[ ! -f /config/crontabs/abc ]] && \
 crontab -l -u abc; then
-    crontab -l -u abc > /config/crontab
+    crontab -l -u abc > /config/crontabs/abc
 fi
 
 # if abc crontabs still do not exist in config (were not copied from system)
 # copy abc crontab from included defaults
-[[ ! -f /config/crontab ]] && \
-    cp /defaults/crontab /config/
+[[ ! -f /config/crontabs/abc ]] && \
+    cp /defaults/crontab /config/crontabs/abc
 
 # permissions
 chmod +x /config/backup.sh
@@ -28,4 +45,5 @@ cp /config/rclone.conf /tmp/rclone.conf
 chown abc:abc /tmp/rclone.conf
 
 # import user crontabs
-crontab -u abc /config/crontab
+crontab -u root /config/crontabs/root
+crontab -u abc /config/crontabs/abc
