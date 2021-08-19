@@ -10,6 +10,9 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}
+  RESTIC_VERSION: ""  # Filled later
+  RCLONE_VERSION: ""  # Filled later
+  TAGS: ""            # Filled later
 
 jobs:
   docker:
@@ -41,15 +44,12 @@ jobs:
       - name: Fetch version numbers
         run: "bash .github/workflows/fetch_vers.sh"
 
+      - name: Generate tags
+        run: "bash .github/workflows/gen_tags.sh"
+
       - name: Build and push containers
         uses: docker/build-push-action@v2
         with:
           platforms: linux/arm,linux/amd64,linux/arm64/v8
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ env.IMAGE_NAME }}:latest
-            ghcr.io/${{ env.IMAGE_NAME }}:latest
-            ${{ env.IMAGE_NAME }}:v${{ env.RESTIC_VERSION }}
-            ghcr.io/${{ env.IMAGE_NAME }}:version-v${{ env.RESTIC_VERSION }}
-            ${{ env.IMAGE_NAME }}:v${{ env.RESTIC_VERSION }}
-            ghcr.io/${{ env.IMAGE_NAME }}:v${{ env.RESTIC_VERSION }}
+          tags: ${{ env.TAGS }}
