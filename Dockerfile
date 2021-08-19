@@ -2,16 +2,22 @@ FROM lsiobase/alpine:3.11 AS downloader
 
 RUN apk --no-cache add wget unzip
 
+ARG TARGETPLATFORM
+
 ARG RCLONE_VERSION=1.55.1
 
-RUN wget https://downloads.rclone.org/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-amd64.zip && \
-   unzip rclone-v${RCLONE_VERSION}-linux-amd64.zip && \
-   mv rclone-v${RCLONE_VERSION}-linux-amd64/rclone /rclone
+RUN echo Building for target ${TARGETPLATFORM}
+
+RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm-v7;; "linux/arm64") ARCH=arm64;; esac && \
+   wget -q https://downloads.rclone.org/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-${ARCH}.zip && \
+   unzip rclone-v${RCLONE_VERSION}-linux-${ARCH}.zip && \
+   mv rclone-v${RCLONE_VERSION}-linux-${ARCH}/rclone /rclone
 
 ARG RESTIC_VERSION=0.12.0
-RUN wget https://github.com/restic/restic/releases/download/v${RESTIC_VERSION}/restic_${RESTIC_VERSION}_linux_amd64.bz2 && \
-   bzip2 -d restic_${RESTIC_VERSION}_linux_amd64.bz2 && \
-   mv restic_${RESTIC_VERSION}_linux_amd64 /restic && \
+RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm;; "linux/arm64") ARCH=arm64;; esac && \
+   wget -q https://github.com/restic/restic/releases/download/v${RESTIC_VERSION}/restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
+   bzip2 -d restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
+   mv restic_${RESTIC_VERSION}_linux_${ARCH} /restic && \
    chmod +x /restic
 
 RUN RCLONE_VERSION=true /rclone version && \
