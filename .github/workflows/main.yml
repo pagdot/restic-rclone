@@ -7,6 +7,8 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: '0 5 * * *' # every day 5am
 
 env:
   IMAGE_NAME: ${{ github.repository }}
@@ -41,10 +43,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fetch version numbers
+      - name: Fetch RESTIC_VERSION and RCLONE_VERSION
         run: "bash .github/workflows/fetch_vers.sh"
 
-      - name: Generate tags
+      - name: Generate TAGS
         run: "bash .github/workflows/gen_tags.sh"
 
       - name: Build and push containers
