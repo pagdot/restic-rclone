@@ -4,7 +4,7 @@ RUN apk --no-cache add wget unzip
 
 ARG TARGETPLATFORM
 
-ARG RCLONE_VERSION=1.55.1
+ARG RCLONE_VERSION=1.58.0
 
 RUN echo Building for target ${TARGETPLATFORM}
 
@@ -13,7 +13,7 @@ RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=a
    unzip rclone-v${RCLONE_VERSION}-linux-${ARCH}.zip && \
    mv rclone-v${RCLONE_VERSION}-linux-${ARCH}/rclone /rclone
 
-ARG RESTIC_VERSION=0.12.0
+ARG RESTIC_VERSION=0.13.0
 RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm;; "linux/arm64") ARCH=arm64;; esac && \
    wget -q https://github.com/restic/restic/releases/download/v${RESTIC_VERSION}/restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
    bzip2 -d restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
