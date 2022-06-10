@@ -3,17 +3,11 @@ name: Build
 on:
   push:
     branches: [ 'main' ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main ]
-  schedule:
-    - cron: '0 5 * * *' # every day 5am
 
 env:
   IMAGE_NAME: ${{ github.repository }}
-  RESTIC_VERSION: ""  # Filled later
-  RCLONE_VERSION: ""  # Filled later
   TAGS: ""            # Filled later
 
 jobs:
@@ -42,9 +36,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Fetch RESTIC_VERSION and RCLONE_VERSION
-        run: "bash .github/workflows/fetch_vers.sh"
 
       - name: Generate TAGS
         run: "bash .github/workflows/gen_tags.sh"
