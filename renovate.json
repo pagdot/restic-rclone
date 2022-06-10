@@ -13,7 +13,13 @@
       "fileMatch": ["^Dockerfile$"],
       "matchStrings": ["ARG RESTIC_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": "restic/restic",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
+    }
+  ],
+  "packageRules": [
+    {
+      "packageNames": ["restic/restic"],
+      "extractVersion": "^v(?<version>.*)$"
     }
   ]
 }
