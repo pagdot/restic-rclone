@@ -4,14 +4,14 @@ RUN apk --no-cache add wget unzip
 
 ARG TARGETPLATFORM
 
-ARG RCLONE_VERSION=1.58.0
+ARG RCLONE_VERSION=v1.58.0
 
 RUN echo Building for target ${TARGETPLATFORM}
 
 RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm-v7;; "linux/arm64") ARCH=arm64;; esac && \
-   wget -q https://downloads.rclone.org/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-${ARCH}.zip && \
-   unzip rclone-v${RCLONE_VERSION}-linux-${ARCH}.zip && \
-   mv rclone-v${RCLONE_VERSION}-linux-${ARCH}/rclone /rclone
+   wget -q https://downloads.rclone.org/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-${ARCH}.zip && \
+   unzip rclone-${RCLONE_VERSION}-linux-${ARCH}.zip && \
+   mv rclone-${RCLONE_VERSION}-linux-${ARCH}/rclone /rclone
 
 ARG RESTIC_VERSION=0.13.0
 RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm;; "linux/arm64") ARCH=arm64;; esac && \
