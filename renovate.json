@@ -5,13 +5,13 @@
   "regexManagers": [
     {
       "fileMatch": ["^Dockerfile$"],
-      "matchStrings": ["ARG RCLONE_VERSION==(?<currentValue>.*?)\\n"],
+      "matchStrings": ["ARG RCLONE_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": " rclone/rclone",
       "datasourceTemplate": "github-releases"
     },
     {
       "fileMatch": ["^Dockerfile$"],
-      "matchStrings": ["ARG RESTIC_VERSION==(?<currentValue>.*?)\\n"],
+      "matchStrings": ["ARG RESTIC_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": " restic/restic",
       "datasourceTemplate": "github-releases"
     }
