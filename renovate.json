@@ -6,13 +6,13 @@
     {
       "fileMatch": ["^Dockerfile$"],
       "matchStrings": ["ARG RCLONE_VERSION=(?<currentValue>.*?)\\n"],
-      "depNameTemplate": " rclone/rclone",
+      "depNameTemplate": "rclone/rclone",
       "datasourceTemplate": "github-releases"
     },
     {
       "fileMatch": ["^Dockerfile$"],
       "matchStrings": ["ARG RESTIC_VERSION=(?<currentValue>.*?)\\n"],
-      "depNameTemplate": " restic/restic",
+      "depNameTemplate": "restic/restic",
       "datasourceTemplate": "github-releases"
     }
   ]
