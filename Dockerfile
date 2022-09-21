@@ -38,4 +38,4 @@ COPY root/ /
 
 VOLUME /config
 
-WORKDIR /data
+WORKDIR /config
