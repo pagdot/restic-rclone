@@ -19,6 +19,7 @@
   "packageRules": [
     {
       "packageNames": ["restic/restic"],
+      "automerge": true,
       "extractVersion": "^v(?<version>.*)$"
     }
   ]
