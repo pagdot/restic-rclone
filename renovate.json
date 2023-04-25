@@ -19,7 +19,6 @@
   "packageRules": [
     {
       "packageNames": ["restic/restic"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
       "automerge": true,
       "extractVersion": "^v(?<version>.*)$"
     }
