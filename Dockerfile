@@ -13,7 +13,7 @@ RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=a
    unzip rclone-${RCLONE_VERSION}-linux-${ARCH}.zip && \
    mv rclone-${RCLONE_VERSION}-linux-${ARCH}/rclone /rclone
 
-ARG RESTIC_VERSION=0.16.1
+ARG RESTIC_VERSION=0.16.2
 RUN case ${TARGETPLATFORM} in "linux/amd64") ARCH=amd64;; "linux/arm/v7") ARCH=arm;; "linux/arm64") ARCH=arm64;; esac && \
    wget -q https://github.com/restic/restic/releases/download/v${RESTIC_VERSION}/restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
    bzip2 -d restic_${RESTIC_VERSION}_linux_${ARCH}.bz2 && \
