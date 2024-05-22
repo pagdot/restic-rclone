@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.19 AS downloader
+FROM lsiobase/alpine:3.20 AS downloader
 
 RUN apk --no-cache add wget unzip
 
@@ -24,7 +24,7 @@ RUN RCLONE_VERSION=true /rclone version && \
    /restic version
 
 # Begin final image
-FROM lsiobase/alpine:3.19
+FROM lsiobase/alpine:3.20
 
 RUN apk --no-cache add dcron curl && \
    ln -s /config/crontab /etc/crontabs/abc
