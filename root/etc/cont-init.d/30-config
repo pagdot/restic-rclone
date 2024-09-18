@@ -43,7 +43,3 @@ mkdir -p /cache && chown -R abc:abc /cache
 # Copy config to new location so it can be mounted read-only
 cp /config/rclone.conf /tmp/rclone.conf
 chown abc:abc /tmp/rclone.conf
-
-# import user crontabs
-crontab -u root /config/crontabs/root
-crontab -u abc /config/crontabs/abc
