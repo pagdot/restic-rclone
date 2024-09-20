@@ -9,32 +9,6 @@ mkdir -p \
 	cp /defaults/backup.sh /config/backup.sh
 [[ ! -f /config/rclone.conf ]] && \
 	touch /config/rclone.conf
-
-# if root crontabs do not exist in config
-# copy root crontab from system
-if [[ ! -f /config/crontabs/root ]] && \
-crontab -l -u root; then
-    crontab -l -u root > /config/crontabs/root
-fi
-
-# if root crontabs still do not exist in config (were not copied from system)
-# copy root crontab from included defaults
-[[ ! -f /config/crontabs/root ]] && \
-    cp /defaults/crontab /config/crontabs/root
-
-
-# if abc crontabs do not exist in config
-# copy abc crontab from system
-if [[ ! -f /config/crontabs/abc ]] && \
-crontab -l -u abc; then
-    crontab -l -u abc > /config/crontabs/abc
-fi
-
-# if abc crontabs still do not exist in config (were not copied from system)
-# copy abc crontab from included defaults
-[[ ! -f /config/crontabs/abc ]] && \
-    cp /defaults/crontab /config/crontabs/abc
-
 # permissions
 chmod +x /config/backup.sh
 chown -R abc:abc /config
