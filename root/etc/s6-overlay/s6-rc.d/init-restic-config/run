@@ -2,7 +2,7 @@
 
 # make folders
 mkdir -p \
-    /config/crontabs
+    /config/
 
 # copy config files
 [[ ! -f /config/backup.sh ]] && \
