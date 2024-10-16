@@ -29,7 +29,8 @@ FROM lsiobase/alpine:3.20
 RUN apk --no-cache add curl
 
 ENV RCLONE_CONFIG=/tmp/rclone.conf
-ENV RCLONE_CACHE_DIR=/cache
+ENV RCLONE_CACHE_DIR=/cache/rclone
+ENV RESTIC_CACHE_DIR=/cache/restic
 
 COPY --from=downloader /rclone /usr/local/bin/
 COPY --from=downloader /restic /usr/local/bin/

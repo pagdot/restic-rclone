@@ -12,7 +12,7 @@ mkdir -p \
 # permissions
 chmod +x /config/backup.sh
 chown -R abc:abc /config
-mkdir -p /cache && chown -R abc:abc /cache
+mkdir -p /cache/{rclone,restic} && chown -R abc:abc /cache
 
 # Copy config to new location so it can be mounted read-only
 cp /config/rclone.conf /tmp/rclone.conf
