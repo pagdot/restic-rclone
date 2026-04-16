@@ -25,7 +25,6 @@
     {
       "packageNames": ["rclone/rclone"],
       "automerge": true,
-      "extractVersion": "^v(?<version>.*)$"
     }
   ]
 }
