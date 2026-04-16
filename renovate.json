@@ -21,6 +21,11 @@
       "packageNames": ["restic/restic"],
       "automerge": true,
       "extractVersion": "^v(?<version>.*)$"
+    },
+    {
+      "packageNames": ["rclone/rclone"],
+      "automerge": true,
+      "extractVersion": "^v(?<version>.*)$"
     }
   ]
 }
