@@ -4,7 +4,7 @@ RUN apk --no-cache add wget unzip
 
 ARG TARGETPLATFORM
 
-ARG RCLONE_VERSION=v1.73.4
+ARG RCLONE_VERSION=v1.73.5
 
 RUN echo Building for target ${TARGETPLATFORM}
 
